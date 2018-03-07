@@ -105,6 +105,28 @@ library(dplyr)
 ```r
 newdata<-data %>% group_by(interval) %>% mutate(steps = ifelse(is.na(steps),mean(steps, na.rm=TRUE),steps))
 ```
+
+###4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day.
+
+
+```r
+newTotalPerDay<-tapply(newdata$steps,data$date,sum)
+hist(newTotalPerDay)
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
+
+###5. Calculate and report the mean and median of the total number of steps taken per day
+
+```r
+#Mean Steps/Day
+mean<-mean(newTotalPerDay)
+#Median Steps/Day
+median<-median(newTotalPerDay)
+```
+The new mean number of steps taken was 1.0766189\times 10^{4}. The new median number of steps taken was 1.0766189\times 10^{4}.
+Now the mean and median are exactly the same and both are higher than before.
+
 ## Are there differences in activity patterns between weekdays and weekends?
 ###1. Create a new factor variable in the dataset with two levels - "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
 
@@ -150,4 +172,4 @@ library(ggplot2)
 ggplot(avgdata, aes(x = interval, y = avgsteps)) + geom_line() + facet_wrap(~daytype)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
